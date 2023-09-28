@@ -3,7 +3,93 @@ const minimikoko = 0.25;
 let koko = minimikoko;
 let klikit = 0;
 let aikaid, aloitusaika;
+let varoitusPaalla = false;
+let kokoKuorma = 0;
+let lampotila = 24;
 
+/* 
+otsikko:
+klikit:
+maksu:
+naytetaan:
+kaytetty:
+*/
+
+const paivitykset = [
+    {
+        id: 1,
+        otsikko: "Solid sides",
+        klikkiraja: 50,
+        maksu: 2,
+        kuorma: 0.1,
+        naytossa: false,
+        kaytetty: false
+    },
+    {
+        id: 2,
+        otsikko: "Increase rotation speed",
+        klikkiraja: 75,
+        maksu: 0,
+        kuorma: 0.25,
+        naytossa: false,
+        kaytetty: false
+    },
+    {
+        id: 3,
+        otsikko: "Transparent sides",
+        klikkiraja: 100,
+        maksu: 2,
+        kuorma: 0.2,
+        naytossa: false,
+        kaytetty: false
+    },
+    {
+        id: 4,
+        otsikko: "Shaded sides",
+        klikkiraja: 150,
+        maksu: 2,
+        kuorma: 0.3,
+        naytossa: false,
+        kaytetty: false
+    },
+    {
+        id: 5,
+        otsikko: "Transparent shaded sides",
+        klikkiraja: 175,
+        maksu: 2,
+        kuorma: 0.3,
+        naytossa: false,
+        kaytetty: false
+    },
+    {
+        id:6,
+        otsikko: "Textured sides",
+        klikkiraja: 200,
+        maksu: 2,
+        kuorma: 0.4,
+        naytossa: false,
+        kaytetty: false
+    },
+    {
+        id: 7,
+        otsikko: "",
+        klikkiraja: 250,
+        maksu: 2,
+        kuorma: 0.5,
+        naytossa: false,
+        kaytetty: false
+    }
+
+]
+
+/*
+solid sides
+transparent sides
+shaded sides
+transparent shaded sides with image
+textured sides
+animated sides ?
+*/
 /* Kuution klikkaus */
 document.querySelector('.kuutio').addEventListener('click', (event) => {
     if (koko < 0.6) { /* 1.2 */
@@ -18,7 +104,7 @@ document.querySelector('.kuutio').addEventListener('click', (event) => {
     } else {
         /* koko = ((koko / 2) < minimikoko) ? minimikoko : koko / 2; */
         const ia = document.querySelector('#infoalue');
-        ia.innerHTML = 'Low VRAM!<br>Cannot increase cube size.<br>Choose upgrades to increase GPU load.';
+        ia.innerHTML = 'WARNING<br>Low VRAM! Cannot increase cube size.<br>Choose upgrades to increase GPU load.';
         ia.classList.replace('alert-info','alert-danger');
         ia.style.opacity = 0.8;
     }
@@ -43,10 +129,10 @@ document.querySelector('.kuutio').addEventListener('click', (event) => {
         }, 1000);
     } else {
         /* Ei ollut ensimmäinen */
+        tarkistaPaivitykset();
     }
 
-    console.log(koko);
-    //console.log(getComputedStyle(document.querySelector('.kuutio_sivu')).borderWidth);
+    //console.log(koko);
 });
 
 function asetaKuutionArvo(s,a) {
@@ -59,7 +145,16 @@ function haeKuutionArvo(s) {
     return getComputedStyle(document.querySelector('.kuutio_sivu')).getPropertyValue(s);
 }
 
-
+function tarkistaPaivitykset() {
+    let sopivat = paivitykset.filter(pa => pa.kaytetty === false && pa.naytossa === false && klikit >= pa.klikkiraja - 20 );
+    if (sopivat.length > 0) {
+        let lista = document.querySelector('#paivityslista');
+        if (lista.querySelectorAll('#listateksti').length != 0) {
+            document.querySelector('#listateksti').remove();
+        }
+        
+    }
+}
 //let imgPos = 0;
 
 

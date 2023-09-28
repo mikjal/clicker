@@ -72,7 +72,7 @@
                                 <div class="card-footer">
                                     <p class="card-title">GPU Temperature</p>
                                     <div class="progress mb-2" role="progressbar">
-                                        <div class="progress-bar bg-warning" style="width: 75%;"></div>
+                                        <div class="progress-bar bg-success" style="width: 24%;"></div>
                                         <!-- bg-success bg-warning bg-danger -->
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                         <div class="card text-center mt-3">
                             <div class="card-header">GPU Load
                                 <div class="progress mb-2 mt-2" role="progressbar">
-                                    <div class="progress-bar bg-success" style="width: 50%;">50%</div>
+                                    <div class="progress-bar bg-success" style="width: 0%;">0%</div>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -99,14 +99,14 @@
                                     Click cube to start!
                                 </div>
                             </div>
-                            <div class="card-footer mt-3">
+                            <div class="card-footer mt-3 pb-1">
                                 <div class="row">
                                     <div class="col">
-                                        <p class="card-title">Time</p>
+                                        <p class="card-title mb-1">Time</p>
                                         <p class="fs-4 mb-1" id="aika">00:00</p>
                                     </div>
                                     <div class="col">
-                                        <p class="card-title">Clicks</p>
+                                        <p class="card-title mb-1">Clicks</p>
                                         <p class="fs-4 mb-1" id="klikit">0</p>
                                     </div>
                                 </div>
@@ -114,10 +114,23 @@
                         </div> <!-- end Load card-->
                         <!-- Upgrades card-->
                         <div class="card mt-3 text-center">
-                            <div class="card-header">Upgrades</div>
+                            <div class="card-header">Load Upgrades</div>
                             <div class="card-body">
-
-                            </div>
+                                <!--
+                                <div class="alert alert-info text-start py-2" role="button">
+                                    <strong class="me-auto">Otsikko</strong>
+                                    <small class="float-end">Tekstiä</small>
+                                    <hr class="my-1">
+                                </div>
+                                -->
+                                <div class="d-grid gap-2" id="paivityslista">
+                                    <p class="mb-0 text-body-secondary" id="listateksti">Nothing here yet</p>
+                                    <!--
+                                    <button type="button" class="btn btn-success text-start disabled"><strong>Transparent shaded sides + image</strong><small class="float-end align-bottom">500 clicks required</small><hr class="my-1">Toinen rivi</button>
+                                    <button type="button" class="btn btn-success text-start"><strong>Transparent shaded sides + image</strong><hr class="my-1"><small>500 clicks required</small><small class="float-end">Cost: -50% cube size</small></button>
+                                    -->
+                                </div>
+                            </div> <!-- end card-body -->
                         </div> <!-- end Upgrades card-->
                     </div>
                 </div>
