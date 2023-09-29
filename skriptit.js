@@ -1,5 +1,6 @@
 
 const minimikoko = 0.25;
+const maxkoko = 1.2;
 let koko = minimikoko;
 let klikit = 0;
 let aikaid, aloitusaika;
@@ -17,64 +18,78 @@ kaytetty:
 
 const paivitykset = [
     {
-        id: 1,
+        id: 0,
         otsikko: "Solid sides",
         klikkiraja: 50,
-        maksu: 2,
+        maksu: 0,
+        edellisetPoistettava: false,
+        poistettava: true,
         kuorma: 0.1,
         naytossa: false,
         kaytetty: false
     },
     {
-        id: 2,
+        id: 1,
         otsikko: "Increase rotation speed",
         klikkiraja: 75,
         maksu: 0,
+        edellisetPoistettava: false,
+        poistettava: false,
         kuorma: 0.25,
         naytossa: false,
         kaytetty: false
     },
     {
-        id: 3,
+        id: 2,
         otsikko: "Transparent sides",
         klikkiraja: 100,
-        maksu: 2,
+        maksu: 4,
+        edellisetPoistettava: true,
+        poistettava: true,
         kuorma: 0.2,
         naytossa: false,
         kaytetty: false
     },
     {
-        id: 4,
+        id: 3,
         otsikko: "Shaded sides",
         klikkiraja: 150,
-        maksu: 2,
+        maksu: 4,
+        edellisetPoistettava: true,
+        poistettava: true,
         kuorma: 0.3,
         naytossa: false,
         kaytetty: false
     },
     {
-        id: 5,
+        id: 4,
         otsikko: "Transparent shaded sides",
         klikkiraja: 175,
-        maksu: 2,
+        maksu: 3,
+        edellisetPoistettava: true,
+        poistettava: true,
         kuorma: 0.3,
         naytossa: false,
         kaytetty: false
     },
     {
-        id:6,
+        id:5,
         otsikko: "Textured sides",
         klikkiraja: 200,
-        maksu: 2,
+        maksu: 3,
+        edellisetPoistettava: true,
+        poistettava: true,
         kuorma: 0.4,
         naytossa: false,
         kaytetty: false
     },
     {
-        id: 7,
-        otsikko: "",
+        id: 6,
+        otsikko: " ",
         klikkiraja: 250,
         maksu: 2,
+        edellisetPoistettava: true,
+        poistettava: true,
         kuorma: 0.5,
         naytossa: false,
         kaytetty: false
@@ -92,7 +107,7 @@ animated sides ?
 */
 /* Kuution klikkaus */
 document.querySelector('.kuutio').addEventListener('click', (event) => {
-    if (koko < 0.6) { /* 1.2 */
+    if (koko < maxkoko) { 
         document.querySelector('.kuutio').style.scale = koko - 0.02;
         setTimeout(() => {
             koko += 0.005;
@@ -145,16 +160,125 @@ function haeKuutionArvo(s) {
     return getComputedStyle(document.querySelector('.kuutio_sivu')).getPropertyValue(s);
 }
 
+function asetaSivujenArvo(s,a) {
+    for (i=1;i<7;i++) {
+        document.querySelector('#sivu'+i).style.setProperty(s,a[i-1]);
+    }
+}
+
 function tarkistaPaivitykset() {
+    /* löytyykö päivityksiä jotka pitäisi lisätä näkyville (klikkausrajaan on 20 tai alle) */
     let sopivat = paivitykset.filter(pa => pa.kaytetty === false && pa.naytossa === false && klikit >= pa.klikkiraja - 20 );
     if (sopivat.length > 0) {
         let lista = document.querySelector('#paivityslista');
         if (lista.querySelectorAll('#listateksti').length != 0) {
-            document.querySelector('#listateksti').remove();
+            /* document.querySelector('#listateksti').remove(); */
+            document.querySelector('#listateksti').style.display = 'none';
         }
+        sopivat.forEach((item) => {
+            let ele = document.createElement('button');
+            ele.type = 'button';
+
+            /*
+            let teksti = '<strong>'+item.otsikko+'</strong><hr class="my-1"><small>'+item.klikkiraja+' clicks required</small>';
+            if (item.maksu != 0) {
+                teksti += '<small class="float-end">Cost: -'+Math.round(100/item.maksu)+'% cube size</small>';
+            }
+            */
+            
+            let teksti = '<strong>'+item.otsikko+'</strong><small class="float-end align-bottom">'+ item.klikkiraja +' clicks required</small>';
+            if (item.maksu != 0) {
+                teksti += '<hr class="my-1"><small>Cost:</small><small class="float-end">-'+Math.round(100/item.maksu)+'% cube size';
+                if (item.edellisetPoistettava == true) {
+                    teksti += ' + previous side upgrades removed';
+                }
+                teksti += '</small>';
+            }
+            /* <hr class="my-1"><small>'+item.klikkiraja+' clicks required</small>'; */
+
+            ele.innerHTML = teksti;
+            ele.classList.add('btn','btn-success','text-start','disabled');
+            ele.id = 'upgrade' + item.id;
+            ele.addEventListener('click',() => { upgradeButton(item.id) });
+            document.querySelector('#paivityslista').appendChild(ele);
+            paivitykset[item.id].naytossa = true;
+        });
+    }
+    /* löytyykö päivityksiä joiden napin käyttö pitää sallia? */
+    sopivat = paivitykset.filter(pa => pa.kaytetty === false && pa.naytossa === true && klikit == pa.klikkiraja);
+    if (sopivat.length > 0) {
+        sopivat.forEach((item) => {
+            let e = document.querySelector('#upgrade'+item.id);
+            e.classList.replace('disabled','enabled');
+        });
+    }
+
+}
+
+function upgradeButton(bid) {
+    console.log(koko);
+
+    if (paivitykset[bid].maksu != 0) {
         
+        koko = (koko - koko / paivitykset[bid].maksu < minimikoko) ? minimikoko : koko - koko / paivitykset[bid].maksu;
+    }
+
+    console.log(koko);
+
+/*
+shaded sides
+transparent shaded sides with image
+textured sides
+animated sides ?
+*/
+    switch (bid) {
+        case 0: /* solid sides */
+            /* vihreä #428457, sininen 425784, violetti #574284, vaalena vihreä #578442, oranssi #845742, punainen #844257 */
+            asetaKuutionArvo('opacity','1');
+            asetaSivujenArvo('background-color',['#425784','#428457','#574284','#578442','#844257','#845742']);
+            break;
+        case 1: /* increase speed */
+            document.querySelector('.kuutio').style.animationDuration = '5s';
+            break;
+        case 2: /* transparent sides */
+            asetaKuutionArvo('opacity','0.6');
+            asetaSivujenArvo('background-color',['#425784','#428457','#574284','#578442','#844257','#845742']);
+            break;
+        case 3: /* shaded sides */
+            break;
+        case 4: /* transparent shaded sides */
+            break;
+        case 5: /* textured sides */
+            break;
+        case 6: /* textured sides */
+            break;
+        }
+
+    /* poista edelliset side upgradet jos sitä vaaditaan ja niitä on */
+    if (paivitykset[bid].edellisetPoistettava == true) {
+        poistaEdelliset(bid);
+    }
+
+    document.querySelector('.kuutio').style.scale = koko;
+    paivitykset[bid].kaytetty = true;
+    document.querySelector('#upgrade'+bid).remove();
+
+    if (document.querySelector('#paivityslista').querySelectorAll('button').length == 0) {
+        document.querySelector('#listateksti').style.display = 'initial';
     }
 }
+
+function poistaEdelliset(num) {
+    if (num > 0) {
+        for (i=0;i<num;i++) {
+            if (paivitykset[i].poistettava == true && document.querySelector('#paivityslista').querySelectorAll('#upgrade'+i).length != 0) {
+                paivitykset[i].kaytetty = true;
+                document.querySelector('#upgrade'+i).remove();
+            }
+        }
+    }
+}
+
 //let imgPos = 0;
 
 

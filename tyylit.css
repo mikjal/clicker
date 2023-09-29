@@ -23,11 +23,13 @@
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    animation: pyoritys 10s linear infinite;
+    animation-name: pyoritys;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
     scale: 0.25;
     /* transition: all 9s; */
     cursor: pointer;
-    
     /* transform: translateZ(-100px); */
     /* transform: translateX(-20px); */
     /* transition-duration: 5s; */
