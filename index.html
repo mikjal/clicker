@@ -62,12 +62,12 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <!-- <div class="col-md-5"> -->
-                    <div class="col">
+                    <div class="col-lg">
                         <!-- GPU card -->
                         <div class="card text-center">
                                 <div class="card-body">
                                     <div id="nayttis">
-                                        <img src="savu.png" alt="" style="opacity: 0;">
+                                        <img id="savu" alt="" style="width: 222px">
                                     </div>
                                 </div>
                                 <div class="card-footer">
@@ -79,25 +79,17 @@
                                 </div>
                         </div> <!-- end GPU card-->
                         <!-- Upgrades card-->
-                        <div class="card mt-3 text-center">
+                        <div class="card my-3 text-center">
                             <div class="card-header">Load Upgrades</div>
                             <div class="card-body">
-                                <!--
-                                <div class="alert alert-info text-start py-2" role="button">
-                                    <strong class="me-auto">Otsikko</strong>
-                                    <small class="float-end">Tekstiä</small>
-                                    <hr class="my-1">
-                                </div>
-                                -->
                                 <div class="d-grid gap-2" id="paivityslista">
                                     <p class="mb-0 text-body-secondary" id="listateksti">No upgrades available</p>
-                                    <!--
-                                    <button type="button" class="btn btn-success text-start disabled"><strong>Transparent shaded sides + image</strong><small class="float-end align-bottom">500 clicks required</small><hr class="my-1">Toinen rivi</button>
-                                    <button type="button" class="btn btn-success text-start"><strong>Transparent shaded sides + image</strong><hr class="my-1"><small>500 clicks required</small><small class="float-end">Cost: -50% cube size</small></button>
-                                    -->
                                 </div>
                             </div> <!-- end card-body -->
                         </div> <!-- end Upgrades card-->
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-lg" onclick="location.reload();" id="uusiksi" style="display: none;">Try Again</button>
+                        </div>
                     </div> <!-- end col -->
                     <div class="col">
                         <!-- Load card -->
@@ -150,8 +142,13 @@
                     <small>Viilennys:</small><small class="float-end" id="debug_viilennys">-</small><br>
                     <small>Kuorman vaikuttus - viilennys:</small><small class="float-end" id="debug_lampvaikutus">-</small><br>
                     <small>Lämpötila:</small><small class="float-end" id="debug_lampotila">-</small><br>
-                    <button type="button" class="btn btn-primary btn-sm mt-1" onclick="klikit += 9; document.querySelector('.kuutio').click();">+10 klikkausta</button>
-                    <button type="button" class="btn btn-primary btn-sm mt-1 float-end" onclick="klikit += 99; document.querySelector('.kuutio').click();">+100 klikkausta</button>
+                    <button type="button" class="btn btn-primary btn-sm mt-1" onclick="klikit += 9; document.querySelector('.kuutio').click(); ">+10</button>
+                    <button type="button" class="btn btn-primary btn-sm mt-1" onclick="klikit += 99; document.querySelector('.kuutio').click();">+100</button>
+                    <div class="float-end">
+                        <button type="button" class="btn btn-primary btn-sm mt-1" onclick="koko = 1.0; document.querySelector('.kuutio').click();">ISO</button>
+                        <button type="button" class="btn btn-primary btn-sm mt-1" onclick="koko = 2.0; upgradeButton(8); lampotila = 121;">TILT</button>
+                    </div>
+
                 </div>
             </div>
     </main>

@@ -2,16 +2,14 @@
 const minimikoko = 0.25;
 const maxkoko = 1.2;
 let koko = minimikoko;
-let klikit = 0;
 let aikaid, aloitusaika, gpuid;
 let varoitusPaalla = false;
-let kokoKuorma = 0;
 let klikkiKuorma = 0.1;
 let lampotila = 24;
 let nopeus = 10;
 let debug = false;
-let nykyinenProfiili = 0;
-let animKohta = 0;
+let nykyinenProfiili = animKohta = theEnd = klikit = kokoKuorma = 0;
+
 
 const paivitykset = [
     {
@@ -160,11 +158,27 @@ const tuuletinProfiili = [
         animAika: 20,
         viilennys: 5
     },
-]
+];
 
+const sekoScripti = [
+    [['#sisalto','transition','none']], 
+    [['.kuutio','animation-duration','1s']],
+    [['#sivu1','display','none'],['#sivu5','background-image','none'],['#sivu5','background-color','black'],['#sivu5','transform','rotateZ(78deg)']],
+    [['.kuutio','animation-duration','4s'],['#sivu2','tranform','rotateX(57deg)']],
+    [['.kuutio','animation-name','none'],['#sivu4','background-color','white'],['#sivu4','background-image','none'],['.kuutio','transform','rotate3d(0.2,-0.5,0.2,25deg)']],
+    [['.kuutio','transform','rotate3d(0.2,-0.5,0.2,100deg)'],['#sivu3','background-color','green'],['#sivu4','display','none']],
+    [['.kuutio','transform','rotate3d(0.2,-0.5,0.2,253deg)'],['#sivu5','background-color','blue'],['#sivu2','background-color','yellow'],['#sivu2','background-image','none'],['#sivu3','display','none']],
+    [['.kuutio','transform','rotate3d(0.2,-0.5,0.2,-2deg)'],['#sivu1','background-color','red'],['#sivu1','background-image','none'],['#sivu6','display','none']],
+    [['.kuutio','transform','rotate3d(0.2,-0.5,0.2,156deg)'],['#sivu5','display','none']],
+    [['.kuutio','transform','rotate3d(0.2,-0.5,0.2,200deg)'],['#sivu2','display','none']]
+];
+
+
+document.querySelector('.kuutio').addEventListener('click', cubeClick);
 
 /* Kuution klikkaus */
-document.querySelector('.kuutio').addEventListener('click', (event) => {
+function cubeClick(event) {
+/* document.querySelector('.kuutio').addEventListener('click', (event) => { */
     /* Voidaanko kasvattaa kuution kokoa? */
     if (koko < maxkoko) { 
         /* kuution kokoa voi kasvattaa */
@@ -200,16 +214,13 @@ document.querySelector('.kuutio').addEventListener('click', (event) => {
     } else {
         /* kuution kokoa ei voi enää kasvattaa */
         const ia = document.querySelector('#infoalue');
-        ia.innerHTML = 'WARNING<br>Low VRAM! Cannot increase cube size.<br>Choose upgrades to increase GPU load.';
+        ia.innerHTML = 'LOW VRAM!<br>Cannot increase cube size.<br>Choose upgrades to increase GPU load.';
         ia.classList.replace('alert-info','alert-danger');
         ia.style.opacity = 0.8;
         varoitusPaalla = true;
     }
 
-
-
-    //console.log(koko);
-});
+};
 
 function kuormaMittari(a) {
     const km = document.querySelector('#kuormamittari');
@@ -284,6 +295,35 @@ function kello() {
         document.querySelector('#debug_lampvaikutus').innerHTML = yv.toString().slice(0,4);
     }
 
+    if (lampotila > 120) { /* sekoaminen */
+        clearInterval(aikaid);
+        document.querySelector('.kuutio').removeEventListener('click',cubeClick);
+        aikaid = setInterval(sekoaminen, 500);
+    }
+}
+
+
+function sekoaminen() {
+
+    if (theEnd == 0) {
+        asetaKuutionArvo('transition','none');
+    }
+
+    if (theEnd < sekoScripti.length) {
+        for (let rivi of sekoScripti[theEnd]) {
+            asetaArvo(rivi[0],rivi[1],rivi[2]);
+        }
+        if (theEnd+3 == sekoScripti.length ) {
+            document.querySelector('#savu').src = '/img/savu.gif';
+        }
+    } else {
+        /* kuution pitäisi olla "hajonnut" */
+        document.querySelector('#nayttis').style.backgroundImage = 'none';
+        clearInterval(aikaid);
+        document.querySelector('#uusiksi').style.display = 'initial';
+    }
+
+    theEnd += 1;
 }
 
 function animGPU(p) {
@@ -315,6 +355,10 @@ function asetaSivujenArvo(s,a) {
     for (i=1;i<7;i++) {
         document.querySelector('#sivu'+i).style.setProperty(s,a[i-1]);
     }
+}
+
+function asetaArvo(dst,prop,val) {
+    document.querySelector(dst).style.setProperty(prop,val);
 }
 
 function tarkistaPaivitykset() {
@@ -420,18 +464,18 @@ function upgradeButton(bid) {
             break;
 */
         case 8: /* animated sides */
-            asetaKuutionArvo('border','none');
-            asetaKuutionArvo('opacity','0.8');
+            asetaKuutionArvo('border','1px solid #425784');
+            asetaKuutionArvo('opacity','0.9'); 
             asetaSivujenArvo('background-size','100%');
             asetaSivujenArvo('background-repeat','no-repeat');
-            asetaSivujenArvo('background-color','#1a2033')
+            /* asetaSivujenArvo('background-color','#1a2033') */
             asetaSivujenArvo('background-image',[
-                'url("/img/anim1.gif")',
-                'url("/img/anim2.gif")',
-                'url("/img/anim3.gif")',
-                'url("/img/anim2.gif")',
-                'url("/img/anim1.gif")',
-                'url("/img/anim1.gif")'
+                'url("/img/anim1.gif"), radial-gradient(circle, #27334d 70%, #425784',
+                'url("/img/anim2.gif"), radial-gradient(circle, #27334d 70%, #425784',
+                'url("/img/anim1.gif"), radial-gradient(circle, #27334d 70%, #425784',
+                'url("/img/anim2.gif"), radial-gradient(circle, #27334d 70%, #425784',
+                'url("/img/anim3.gif"), radial-gradient(circle, #27334d 70%, #425784',
+                'url("/img/anim3.gif"), radial-gradient(circle, #27334d 70%, #425784'
             ]);
             klikkiKuorma = paivitykset[bid].kuorma;
             break;
@@ -445,7 +489,9 @@ function upgradeButton(bid) {
     document.querySelector('.kuutio').style.scale = koko;
     paivitykset[bid].kaytetty = true;
     
-    document.querySelector('#upgrade'+bid).remove();
+    if (document.querySelector('#upgrade'+bid) != null) {
+        document.querySelector('#upgrade'+bid).remove();
+    }
 
     if (document.querySelector('#paivityslista').querySelectorAll('button').length == 0) {
         document.querySelector('#listateksti').style.display = 'initial';
@@ -477,75 +523,4 @@ document.addEventListener('keypress', (eve) => {
     }
 });
 
-
-
-
-
-
-
-//let imgPos = 0;
-
-
-//document.querySelector('#nappula').addEventListener('click', () => {
-//    const cube = document.querySelector('.kuutio');
-//    const sivu1 = document.querySelector('#sivu1');
-
-    // Värin muuttaminen taustavärin mukaan
-    /*
-    const vari = window.getComputedStyle( document.body, null).getPropertyValue('background-color');
-    let rgb = vari.match(/[\d\.]+/g);
-    for (let i=0; i<rgb.length; i++) {
-        rgb[i] = 255 - rgb[i];
-    }
-    const sivut = document.querySelectorAll('.kuutio_sivu');
-    for (let sivu of sivut) {
-        sivu.style.borderColor = 'rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
-    }
-    */
-
-
-    // Näytönohjaimen animointi
-    /*
-    setInterval(() => {
-
-        if (imgPos < 3*156) {
-            imgPos += 156;
-        } else {
-            imgPos = 0;
-            console.log('#');
-        }
-        
-        document.querySelector('#img').style.backgroundPosition = '0px -'+imgPos+'px';
-    
-    },100);
-    */
-
-//});
-
-// Kuution suurentaminen ja pienentäminen
-/*
-function zoomi() {
-    if (koko == 1) {
-        koko = 0.8;
-    } else {
-        koko = 1;
-    }
-
-    document.querySelector('.kuutio').style.scale = koko;
-}
-
-setInterval(zoomi,10000);
-*/
-
-/* Kuution pienennys kun sitä klikataan */
-/*
-document.querySelector('.kuutio').addEventListener('click', (event) => {
-    document.querySelector('.kuutio').style.scale = 0.97;
-    setTimeout(() => {
-        document.querySelector('.kuutio').style.scale = 1;
-    },100);
-    console.log(event.clientX,event.clientY);
-});
-*/
-
-
+/* TO-DO: lämpömittarin värit, näytönohjaimen grafiikka kuntoon */
