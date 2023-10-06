@@ -71,7 +71,7 @@
 #nayttis {
     width: 222px;
     height: 156px;
-    background: url("/img/gpu.png") 0px 0px;
+    background: url("../img/gpu.png") 0px 0px;
     background-repeat: no-repeat;
     background-position: center top;
     background-attachment: relative;
