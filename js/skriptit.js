@@ -10,155 +10,19 @@ let nopeus = 10;
 let debug = false;
 let nykyinenProfiili = animKohta = theEnd = klikit = kokoKuorma = 0;
 
-
 const paivitykset = [
-    {
-        id: 0,
-        otsikko: "Solid sides",
-        klikkiraja: 50,
-        maksu: 0,
-        edellisetPoistettava: false,
-        poistettava: true,
-        kuorma: 0.15,
-        naytossa: false,
-        kaytetty: false
-    },
-    {
-        id: 1,
-        otsikko: "Increase rotation speed",
-        klikkiraja: 75,
-        maksu: 0,
-        edellisetPoistettava: false,
-        poistettava: false,
-        kuorma: 0.05,
-        naytossa: false,
-        kaytetty: false
-    },
-    {
-        id: 2,
-        otsikko: "Transparent sides",
-        klikkiraja: 100,
-        maksu: 4,
-        edellisetPoistettava: true,
-        poistettava: true,
-        kuorma: 0.25,
-        naytossa: false,
-        kaytetty: false
-    },
-    {
-        id: 3,
-        otsikko: "Shaded sides",
-        klikkiraja: 150,
-        maksu: 4,
-        edellisetPoistettava: true,
-        poistettava: true,
-        kuorma: 0.3,
-        naytossa: false,
-        kaytetty: false
-    },
-    {
-        id: 4,
-        otsikko: "Increase rotation speed",
-        klikkiraja: 175,
-        maksu: 0,
-        edellisetPoistettava: false,
-        poistettava: false,
-        kuorma: 0.05,
-        naytossa: false,
-        kaytetty: false
-    },
-    {
-        id: 5,
-        otsikko: "Transparent shaded sides",
-        klikkiraja: 200,
-        maksu: 3,
-        edellisetPoistettava: true,
-        poistettava: true,
-        kuorma: 0.4,
-        naytossa: false,
-        kaytetty: false
-    },
-    {
-        id: 6,
-        otsikko: "Textured sides",
-        klikkiraja: 250,
-        maksu: 3,
-        edellisetPoistettava: true,
-        poistettava: true,
-        kuorma: 0.5,
-        naytossa: false,
-        kaytetty: false
-    },
-    {
-        id: 7,
-        otsikko: "Increase rotation speed",
-        klikkiraja: 275,
-        maksu: 0,
-        edellisetPoistettava: false,
-        poistettava: false,
-        kuorma: 0.05,
-        naytossa: false,
-        kaytetty: false
-    },
-/*
-    {
-        id: 8,
-        otsikko: "Transparent textured sides",
-        klikkiraja: 300,
-        maksu: 3,
-        edellisetPoistettava: true,
-        poistettava: true,
-        kuorma: 0.6,
-        naytossa: false,
-        kaytetty: false
-    },
-*/
-    {
-        id: 8,
-        otsikko: "Animated sides",
-        klikkiraja: 320,
-        maksu: 2,
-        edellisetPoistettava: true,
-        poistettava: true,
-        kuorma: 0.7,
-        naytossa: false,
-        kaytetty: false
-    }
-
+    { id: 0, otsikko: "Solid sides", klikkiraja: 50, maksu: 0, edellisetPoistettava: false, poistettava: true, kuorma: 0.15, naytossa: false, kaytetty: false },
+    { id: 1, otsikko: "Increase rotation speed", klikkiraja: 75, maksu: 0, edellisetPoistettava: false, poistettava: false, kuorma: 0.05, naytossa: false, kaytetty: false },
+    { id: 2, otsikko: "Transparent sides",klikkiraja: 100, maksu: 4, edellisetPoistettava: true, poistettava: true, kuorma: 0.25, naytossa: false, kaytetty: false },
+    { id: 3, otsikko: "Shaded sides", klikkiraja: 150, maksu: 4, edellisetPoistettava: true, poistettava: true, kuorma: 0.3, naytossa: false, kaytetty: false },
+    { id: 4, otsikko: "Increase rotation speed", klikkiraja: 175, maksu: 0, edellisetPoistettava: false, poistettava: false, kuorma: 0.05, naytossa: false, kaytetty: false },
+    { id: 5, otsikko: "Transparent shaded sides", klikkiraja: 200, maksu: 3, edellisetPoistettava: true, poistettava: true, kuorma: 0.4, naytossa: false, kaytetty: false },
+    { id: 6, otsikko: "Textured sides", klikkiraja: 250, maksu: 3, edellisetPoistettava: true, poistettava: true, kuorma: 0.5, naytossa: false, kaytetty: false },
+    { id: 7, otsikko: "Increase rotation speed", klikkiraja: 275, maksu: 0, edellisetPoistettava: false, poistettava: false, kuorma: 0.05, naytossa: false, kaytetty: false },
+    { id: 8, otsikko: "Animated sides", klikkiraja: 325, maksu: 2, edellisetPoistettava: true, poistettava: true, kuorma: 0.7, naytossa: false, kaytetty: false }
 ]
 
-const tuuletinProfiili = [
-    {
-        rajaYlospain: 50,
-        rajaAlaspain: 0,
-        animAika: 0,
-        viilennys: 0
-    },
-    {
-        rajaYlospain: 60,
-        rajaAlaspain: 42,
-        animAika: 80,
-        viilennys: 2
-    },
-    {
-        rajaYlospain: 70,
-        rajaAlaspain: 55,
-        animAika: 60,
-        viilennys: 3
-    },
-    {
-        rajaYlospain: 80,
-        rajaAlaspain: 65,
-        animAika: 40,
-        viilennys: 4
-    },
-    {
-        rajaYlospain: 100,
-        rajaAlaspain: 75,
-        animAika: 20,
-        viilennys: 5
-    },
-];
+const tuuletinProfiili = [ { rajaYlospain: 50, rajaAlaspain: 0, animAika: 0, viilennys: 0 }, { rajaYlospain: 60, rajaAlaspain: 42, animAika: 80, viilennys: 2 }, { rajaYlospain: 70, rajaAlaspain: 55, animAika: 60, viilennys: 3 }, { rajaYlospain: 80, rajaAlaspain: 65, animAika: 40, viilennys: 4 }, { rajaYlospain: 100, rajaAlaspain: 75, animAika: 20, viilennys: 5 }, ];
 
 const sekoScripti = [
     [['#sisalto','transition','none']], 
@@ -178,7 +42,6 @@ document.querySelector('.kuutio').addEventListener('click', cubeClick);
 
 /* Kuution klikkaus */
 function cubeClick(event) {
-/* document.querySelector('.kuutio').addEventListener('click', (event) => { */
     /* Voidaanko kasvattaa kuution kokoa? */
     if (koko < maxkoko) { 
         /* kuution kokoa voi kasvattaa */
@@ -199,7 +62,6 @@ function cubeClick(event) {
 
         /* Oliko ensimmäinen klikkaus? */
         if (klikit == 1) {
-            /* Oli ensimmäinen klikkaus */
             document.querySelector('#infoalue').style.opacity = 0;
             aloitusaika = new Date().getTime();
             aikaid = setInterval(kello, 1000);
@@ -214,7 +76,14 @@ function cubeClick(event) {
     } else {
         /* kuution kokoa ei voi enää kasvattaa */
         const ia = document.querySelector('#infoalue');
-        ia.innerHTML = 'LOW VRAM!<br>Cannot increase cube size.<br>Choose upgrades to increase GPU load.';
+        /* upgradelista tyhjä? */
+        if (document.querySelectorAll('#paivityslista button').length == 0) {
+            ia.innerHTML = 'Out of VRAM!<br>Cannot increase cube size.';
+            document.querySelector('#uusiksi').innerHTML = 'Restart';
+            document.querySelector('#uusiksi').style.display = 'initial';
+        } else {
+            ia.innerHTML = 'Out of VRAM!<br>Cannot increase cube size.<br>Choose upgrades to increase GPU load.';
+        }
         ia.classList.replace('alert-info','alert-danger');
         ia.style.opacity = 0.8;
         varoitusPaalla = true;
@@ -224,6 +93,7 @@ function cubeClick(event) {
 
 function kuormaMittari(a) {
     const km = document.querySelector('#kuormamittari');
+    /* max 100 */
     a = (Math.round(a)<100) ? Math.round(a) : 100;
     km.style.width = a +'%';
     if (a > 6) {
@@ -240,11 +110,24 @@ function lampotilaMittari(a) {
     a = (a <= 100) ? Math.round(a) : 100;
     const lm = document.querySelector('#lampotilamittari');
     lm.style.width = a +'%';
+    let kuormavari = (a < 75) ? 'bg-success' : (a < 90) ? 'bg-warning' : 'bg-danger';
+    let poistettavaVari = (lm.classList.contains('bg-danger')) ? 'bg-danger' : (lm.classList.contains('bg-warning')) ? 'bg-warning' : 'bg-success';
+    if (kuormavari != poistettavaVari) {
+        lm.classList.replace(poistettavaVari,kuormavari);
+    }
+
 }
 
 function kello() {
     let ero = Math.round((new Date().getTime() - aloitusaika));
     let s = Math.floor(ero / 60000);
+    
+    /* Restart-nappi näytölle jos peliaikaa on kulunut yli 10 minuuttia */
+    if (ero > 600000 && document.querySelector('#uusiksi').style.display == 'none') {
+        document.querySelector('#uusiksi').innerHTML = 'Restart';
+        document.querySelector('#uusiksi').style.display = 'initial';
+    }
+
     ero = ero - s * 60000;
     s = s.toString().padStart(2,'0') + ':' +(Math.round(ero / 1000)).toString().padStart(2,'0');
     if (document.querySelector('#aika').innerHTML != '-') {
@@ -273,26 +156,16 @@ function kello() {
         }
     }
 
-
     let kl = kokoKuorma / 25; /* kuorman lämpötilaa nostava vaikutus */
-    let vi = tuuletinProfiili[nykyinenProfiili].viilennys; /* viilennyksen jäähdyttävä vaikutus */
-    let yv = kl - vi; /* kuorman vaikutuksesta vähennetään viilennys */
+    let vi = tuuletinProfiili[nykyinenProfiili].viilennys; /* "viilennyksen" jäähdyttävä vaikutus */
+    let yv = kl - vi; /* kuorman vaikutuksesta vähennetään "viilennys" */
 
     lampotila += yv; /* lämpötila nousee tai laskee yhteisvaikutuksen verran */
     lampotilaMittari(lampotila); /* päivitetään lämpömittarin näkymä */
 
     /* debug päällä? */
     if (debug == true) {
-        document.querySelector('#debug_aika').innerHTML = s;
-        document.querySelector('#debug_koko').innerHTML = koko.toString().slice(0,5);
-        document.querySelector('#debug_nopeus').innerHTML = nopeus + 's';
-        document.querySelector('#debug_kuorma').innerHTML = kokoKuorma.toString().slice(0,5);
-        document.querySelector('#debug_kuormalis').innerHTML = klikkiKuorma.toString().slice(0,4);
-        document.querySelector('#debug_lampotila').innerHTML = lampotila.toString().slice(0,5);
-        document.querySelector('#debug_tuuletinprof').innerHTML = nykyinenProfiili;
-        document.querySelector('#debug_kuormalamp').innerHTML = kl.toString().slice(0,4);
-        document.querySelector('#debug_viilennys').innerHTML = vi;
-        document.querySelector('#debug_lampvaikutus').innerHTML = yv.toString().slice(0,4);
+        document.querySelector('#debug_aika').innerHTML = s; document.querySelector('#debug_koko').innerHTML = koko.toString().slice(0,5); document.querySelector('#debug_nopeus').innerHTML = nopeus + 's'; document.querySelector('#debug_kuorma').innerHTML = kokoKuorma.toString().slice(0,5); document.querySelector('#debug_kuormalis').innerHTML = klikkiKuorma.toString().slice(0,4); document.querySelector('#debug_lampotila').innerHTML = lampotila.toString().slice(0,5); document.querySelector('#debug_tuuletinprof').innerHTML = nykyinenProfiili; document.querySelector('#debug_kuormalamp').innerHTML = kl.toString().slice(0,4); document.querySelector('#debug_viilennys').innerHTML = vi; document.querySelector('#debug_lampvaikutus').innerHTML = yv.toString().slice(0,4);
     }
 
     if (lampotila > 120) { /* sekoaminen */
@@ -305,6 +178,11 @@ function kello() {
 
 function sekoaminen() {
 
+    if (varoitusPaalla == true) {
+        varoitusPaalla = false;
+        document.querySelector('#infoalue').style.opacity = 0;
+    }
+
     if (theEnd == 0) {
         asetaKuutionArvo('transition','none');
     }
@@ -312,14 +190,15 @@ function sekoaminen() {
     if (theEnd < sekoScripti.length) {
         for (let rivi of sekoScripti[theEnd]) {
             asetaArvo(rivi[0],rivi[1],rivi[2]);
-        }
-        if (theEnd+3 == sekoScripti.length ) {
-            document.querySelector('#savu').src = '/img/savu.gif';
-        }
+            if (theEnd+1 == sekoScripti.length ) {
+                document.querySelector('#rajahdys').src = '/img/rajahdys.gif';
+            }
+            }
     } else {
         /* kuution pitäisi olla "hajonnut" */
         document.querySelector('#nayttis').style.backgroundImage = 'none';
         clearInterval(aikaid);
+        document.querySelector('#uusiksi').innerHTML = 'Play Again';
         document.querySelector('#uusiksi').style.display = 'initial';
     }
 
@@ -332,8 +211,8 @@ function animGPU(p) {
     }
     if (p != 0) {
         gpuid = setInterval(() => {
-        animKohta = (animKohta < 3*156) ? animKohta + 156 : 0;
-        document.querySelector('#nayttis').style.backgroundPosition = '0px -'+animKohta+'px';
+            animKohta = (animKohta < 3*156) ? animKohta + 156 : 0;
+            document.querySelector('#nayttis').style.backgroundPosition = '0px -'+animKohta+'px';
         }, tuuletinProfiili[p].animAika)
     }
 }
@@ -362,7 +241,7 @@ function asetaArvo(dst,prop,val) {
 }
 
 function tarkistaPaivitykset() {
-    /* löytyykö päivityksiä jotka pitäisi lisätä näkyville (klikkausrajaan on 20 tai alle) */
+    /* löytyykö päivityksiä jotka pitäisi lisätä näkyville (klikkausrajaan on 50 tai alle) */
     let sopivat = paivitykset.filter(pa => pa.kaytetty === false && pa.naytossa === false && klikit >= pa.klikkiraja - 50 );
     if (sopivat.length > 0) {
         let lista = document.querySelector('#paivityslista');
@@ -401,6 +280,12 @@ function tarkistaPaivitykset() {
 
 }
 
+function nopeudenPaivitys() {
+    document.querySelector('.kuutio').style.animationDuration = nopeus+'s';
+    document.querySelector('#sisalto').style.opacity = 1;
+    document.querySelector('#sisalto').removeEventListener('transitionend',nopeudenPaivitys);
+}
+
 function upgradeButton(bid) {
 
     if (paivitykset[bid].maksu != 0) {
@@ -425,10 +310,7 @@ function upgradeButton(bid) {
             let sis = document.querySelector('#sisalto');
             sis.style.opacity = 0;
             nopeus -= 2;
-            setTimeout(() => {
-                document.querySelector('.kuutio').style.animationDuration = nopeus+'s';
-                sis.style.opacity = 1;
-            },750);
+            sis.addEventListener('transitionend',nopeudenPaivitys);
             klikkiKuorma += paivitykset[bid].kuorma;
             break;
         case 2: /* transparent sides */
@@ -446,9 +328,6 @@ function upgradeButton(bid) {
             asetaKuutionArvo('border','none');
             asetaKuutionArvo('opacity','0.6');
             asetaSivujenArvo('background-image',['linear-gradient(45deg, #a2b0d0, #425784)','linear-gradient(-135deg, #a2d0b0, #428457)','linear-gradient(135deg, #b0a2d0, #574284)','linear-gradient(-45deg, #b0d0a2, #578442)','linear-gradient(-135deg, #d0a2b0, #844257)','linear-gradient(135deg, #d0b0a2, #845742)']);
-/*            asetaSivujenArvo('background-image',['linear-gradient(45deg, #425784, #428457)','linear-gradient(45deg, #844257, #845742)','linear-gradient(45deg, #425784, #428457)','linear-gradient(45deg, #425784, #428457)','linear-gradient(45deg, #425784, #428457)','linear-gradient(45deg, #425784, #428457)']); */
-            /* asetaSivujenArvo('background-image','linear-gradient(45deg, #425784, #428457)'); */
-            /* '#844257','#845742' */
             klikkiKuorma = paivitykset[bid].kuorma;
             break;
         case 6: /* textured sides */
@@ -457,26 +336,12 @@ function upgradeButton(bid) {
             asetaKuutionArvo('background-image','url("/img/marmori.jpg")');
             klikkiKuorma = paivitykset[bid].kuorma;
             break;
-/*
-            case 8:
-            asetaKuutionArvo('opacity','0.6');
-            klikkiKuorma = paivitykset[bid].kuorma;
-            break;
-*/
         case 8: /* animated sides */
             asetaKuutionArvo('border','1px solid #425784');
             asetaKuutionArvo('opacity','0.9'); 
             asetaSivujenArvo('background-size','100%');
             asetaSivujenArvo('background-repeat','no-repeat');
-            /* asetaSivujenArvo('background-color','#1a2033') */
-            asetaSivujenArvo('background-image',[
-                'url("/img/anim1.gif"), radial-gradient(circle, #27334d 70%, #425784',
-                'url("/img/anim2.gif"), radial-gradient(circle, #27334d 70%, #425784',
-                'url("/img/anim1.gif"), radial-gradient(circle, #27334d 70%, #425784',
-                'url("/img/anim2.gif"), radial-gradient(circle, #27334d 70%, #425784',
-                'url("/img/anim3.gif"), radial-gradient(circle, #27334d 70%, #425784',
-                'url("/img/anim3.gif"), radial-gradient(circle, #27334d 70%, #425784'
-            ]);
+            asetaSivujenArvo('background-image',['url("/img/anim1.gif"), radial-gradient(circle, #27334d 70%, #425784', 'url("/img/anim2.gif"), radial-gradient(circle, #27334d 70%, #425784', 'url("/img/anim1.gif"), radial-gradient(circle, #27334d 70%, #425784', 'url("/img/anim2.gif"), radial-gradient(circle, #27334d 70%, #425784', 'url("/img/anim3.gif"), radial-gradient(circle, #27334d 70%, #425784', 'url("/img/anim3.gif"), radial-gradient(circle, #27334d 70%, #425784']);
             klikkiKuorma = paivitykset[bid].kuorma;
             break;
         }
@@ -493,7 +358,7 @@ function upgradeButton(bid) {
         document.querySelector('#upgrade'+bid).remove();
     }
 
-    if (document.querySelector('#paivityslista').querySelectorAll('button').length == 0) {
+    if (document.querySelectorAll('#paivityslista button').length == 0) {
         document.querySelector('#listateksti').style.display = 'initial';
     }
 }
@@ -522,5 +387,3 @@ document.addEventListener('keypress', (eve) => {
         }
     }
 });
-
-/* TO-DO: lämpömittarin värit, näytönohjaimen grafiikka kuntoon */

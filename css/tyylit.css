@@ -30,12 +30,7 @@
     animation-iteration-count: infinite;
     scale: 0.25;
     cursor: pointer;
-    /* transform: translateZ(-100px); */
-    /* transform: translateX(-20px); */
-    /* transition-duration: 5s; */
-    /*transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); */
 }
-
 
 .kuutio_sivu {
     position: absolute;
@@ -47,10 +42,6 @@
     align-items: center;
     justify-content: center;
     transition: all 0.5s;
-    /* background-color: aquamarine; */
-    /* background: url("NTHO.gif"); */
-    /* background-color: black; */
-    /* background-size: 100% 100%; */
 }
 
 #sivu1 {
@@ -95,4 +86,18 @@
     transform: translate(-50%,-50px); 
     opacity: 1;
     transition: opacity 1s;
+}
+
+#rajahdys {
+    transform: translate(-15px, -48px);
+}
+
+#varoitus {
+    display: none;
+}
+
+@media screen and (max-width: 991px) {
+    #varoitus {
+        display: block;
+    }
 }
